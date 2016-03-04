@@ -7,6 +7,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y xfce4 gnome-icon-theme-ful
 ENV USER root
 EXPOSE 5901
 
+RUN mkdir ~/.vnc
+COPY passwd /root/.vnc/passwd
+
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
 CMD ["/opt/start.sh"]
