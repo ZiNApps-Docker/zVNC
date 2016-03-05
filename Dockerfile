@@ -8,7 +8,8 @@ ENV USER root
 EXPOSE 5901
 
 RUN mkdir ~/.vnc
-COPY passwd /root/.vnc/passwd
+RUN echo password | vncpasswd -f > /root/.vnc/passwd
+RUN chmod 600 /root/.vnc/passwd
 
 COPY start.sh /opt/
 RUN chmod +x /opt/start.sh
