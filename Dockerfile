@@ -14,15 +14,12 @@ RUN apt-get install paper-icon-theme paper-cursor-theme adapta-gtk-theme -y
 ENV USER root
 EXPOSE 5901
 
-RUN mkdir ~/.vnc
-RUN echo password | vncpasswd -f > /root/.vnc/passwd
-RUN chmod 600 /root/.vnc/passwd
+COPY xsettings.xml /zvnc/xsettings.xml
+COPY xfwm4.xml /zvnc/xfwm4.xml
 
-COPY xsettings.xml /root/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
-COPY xfwm4.xml /root/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
+COPY xstartup /zvnc/xstartup
 
-COPY xstartup /root/.vnc/xstartup
-RUN chmod 755 /root/.vnc/xstartup
+RUN chmod -R a+rwX /zvnc
 
 COPY start.sh /opt/start.sh
 RUN chmod +x /opt/start.sh
